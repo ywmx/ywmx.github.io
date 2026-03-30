@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>The Jade Hotel — Near Tan Son Nhat Airport, Ho Chi Minh City</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       THE JADE HOTEL — FULLY RESPONSIVE + REDESIGNED MOBILE MENU
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red-900:   #6B0000;
+      --red-800:   #8B0000;
+      --red-700:   #A50000;
+      --red-600:   #C0000A;
+      --white:     #FFFFFF;
+      --off-white: #FAF8F6;
+      --cream:     #F5F0EA;
+      --gray-100:  #F0EEEC;
+      --gray-200:  #DDD9D4;
+      --gray-400:  #9A9490;
+      --gray-600:  #5C5550;
+      --gray-800:  #2C2826;
+      --black:     #0F0D0C;
+      --gold:      #C9A84C;
+      --gold-light:#F0D98B;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Montserrat', sans-serif;
+      --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2rem;
+      --space-5: 3rem; --space-6: 4rem; --space-7: 5rem;
+      --container-max: 1280px;
+      --container-pad: 1.25rem;
+      --ease-std: 0.3s ease;
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.12);
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--gray-800);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    section[id] { scroll-margin-top: 100px; }
+    @media (max-width: 768px) { section[id] { scroll-margin-top: 85px; } }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: var(--container-pad);
+    }
+
+    .section { padding-block: var(--space-7); }
+    @media (max-width: 768px) { .section { padding-block: var(--space-5); } }
+    @media (max-width: 480px) { .section { padding-block: var(--space-4); } }
+
+    .section__header { text-align: center; max-width: 640px; margin-inline: auto; margin-bottom: var(--space-6); }
+    .section__eyebrow {
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-600);
+      margin-bottom: var(--space-1);
+    }
+    .section__title {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 300; line-height: 1.2; color: var(--gray-800);
+      margin-bottom: var(--space-2);
+    }
+
+    .btn {
+      display: inline-block; font-family: var(--font-body); font-size: 0.7rem;
+      font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.85rem 1.8rem; border-radius: var(--radius-sm);
+      transition: all var(--ease-std); cursor: pointer; border: none;
+      text-align: center;
+    }
+    .btn--primary { background: var(--red-700); color: var(--white); }
+    .btn--primary:hover { background: var(--red-900); transform: translateY(-2px); }
+    .btn--ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.6); }
+
+    /* ========== NAVIGATION - DESKTOP FIRST ========== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: all var(--ease-std);
+    }
+    .nav.scrolled {
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(12px);
+      padding: 0.5rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .nav.scrolled .nav__logo-text,
+    .nav.scrolled .nav__logo-sub,
+    .nav.scrolled .nav__link {
+      color: var(--gray-800);
+    }
+    .nav.scrolled .nav__link--cta {
+      color: var(--white);
+      background: var(--red-700);
+    }
+    .nav.scrolled .nav__hamburger span {
+      background: var(--gray-800);
+    }
+
+    .nav__inner {
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: var(--container-pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__logo-text {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.08em;
+    }
+    .nav__logo-sub {
+      font-family: var(--font-body);
+      font-size: 0.5rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* Desktop navigation links */
+    .nav__links {
+      display: flex;
+      gap: var(--space-3);
+      align-items: center;
+    }
+    .nav__link {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color var(--ease-std);
+    }
+    .nav__link--cta {
+      background: var(--red-700);
+      color: var(--white);
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-sm);
+    }
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 4px;
+      z-index: 1001;
+    }
+    .nav__hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: all var(--ease-std);
+    }
+
+    /* ========== MOBILE MENU OVERLAY (REDESIGNED) ========== */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--red-900);
+      z-index: 2000;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-5);
+      padding: 2rem;
+      visibility: hidden;
+      opacity: 0;
+      transition: transform 0.4s ease, visibility 0.4s, opacity 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+      visibility: visible;
+      opacity: 1;
+    }
+    .mobile-menu__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 1.8rem;
+      color: white;
+      font-weight: 300;
+    }
+    .mobile-menu__close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .mobile-menu__link {
+      font-family: var(--font-body);
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      transition: all 0.2s;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      width: 80%;
+      text-align: center;
+    }
+    .mobile-menu__link--cta {
+      background: var(--white);
+      color: var(--red-800);
+      border-radius: 40px;
+      margin-top: 1rem;
+      border: none;
+    }
+    .mobile-menu__link:hover {
+      background: rgba(255,255,255,0.1);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 767px) {
+      .nav__links {
+        display: none;
+      }
+      .nav__hamburger {
+        display: flex;
+      }
+    }
+    @media (min-width: 768px) {
+      .mobile-menu {
+        display: none;
+      }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative; height: 100svh; min-height: 560px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero__bg { position: absolute; inset: 0; z-index: 0; }
+    .hero__img { width: 100%; height: 100%; object-fit: cover; animation: heroZoom 12s ease-out forwards; }
+    @keyframes heroZoom { from { transform: scale(1.08); } to { transform: scale(1.0); } }
+    .hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(107, 0, 0, 0.55) 0%, rgba(15, 13, 12, 0.7) 100%);
+    }
+    .hero__content {
+      position: relative; z-index: 2; text-align: center;
+      max-width: 860px; padding-inline: var(--container-pad);
+      animation: fadeUp 1.1s ease 0.2s both;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .hero__title {
+      font-family: var(--font-display); font-size: clamp(2.2rem, 8vw, 5rem);
+      font-weight: 300; color: var(--white); line-height: 1.08;
+    }
+    .hero__title em { font-style: italic; color: var(--gold-light); }
+    .hero__actions { display: flex; gap: var(--space-2); justify-content: center; flex-wrap: wrap; }
+    @media (max-width: 480px) {
+      .hero__actions { flex-direction: column; align-items: stretch; width: 100%; max-width: 280px; margin-inline: auto; }
+    }
+
+    /* STRIP */
+    .strip { background: var(--red-800); padding: 0.8rem var(--container-pad); }
+    .strip__items { max-width: var(--container-max); margin-inline: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    .strip__item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.7rem; color: rgba(255,255,255,0.9); }
+    .strip__icon { width: 18px; height: 18px; color: var(--gold-light); }
+
+    /* ABOUT */
+    .about { background: var(--off-white); }
+    .about__grid { display: grid; gap: var(--space-5); align-items: center; }
+    @media (min-width: 900px) { .about__grid { grid-template-columns: 1fr 1fr; } }
+    .about__img { width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-md); }
+    .about__badge {
+      position: absolute; background: var(--red-800); color: white; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 80px; height: 80px; bottom: -0.5rem; right: 0.5rem;
+    }
+    .about__stats { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-4); border-top: 1px solid var(--gray-200); padding-top: var(--space-4); }
+    .about__stat-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--red-700); }
+
+    /* ROOMS */
+    .rooms__grid { display: grid; gap: 1.5rem; }
+    @media (min-width: 640px) { .rooms__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .rooms__grid { grid-template-columns: repeat(3, 1fr); } }
+    .room-card { background: white; border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid var(--gray-100); }
+    .room-card__img-wrap { height: 200px; overflow: hidden; position: relative; }
+    .room-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .room-card__tag { position: absolute; top: 0.75rem; left: 0.75rem; background: var(--red-700); color: white; font-size: 0.6rem; padding: 0.25rem 0.75rem; border-radius: var(--radius-sm); }
+    .room-card__body { padding: var(--space-3); }
+    .room-card__title { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .room-card__features li { font-size: 0.75rem; padding: 0.3rem 0; border-bottom: 1px dashed var(--gray-100); display: flex; align-items: center; gap: 0.5rem; }
+    .room-card__features li::before { content: ''; width: 5px; height: 5px; background: var(--red-600); border-radius: 50%; }
+
+    /* AMENITIES */
+    .amenities { position: relative; padding-block: var(--space-7); overflow: hidden; }
+    .amenities__bg { position: absolute; inset: 0; z-index: 0; }
+    .amenities__bg-img { width: 100%; height: 100%; object-fit: cover; }
+    .amenities__bg-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(107,0,0,0.88) 0%, rgba(15,13,12,0.94) 100%); }
+    .amenities__inner { position: relative; z-index: 2; }
+    .amenities__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    @media (min-width: 560px) { .amenities__grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1024px) { .amenities__grid { grid-template-columns: repeat(6, 1fr); } }
+    .amenity-group { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-md); padding: 1rem 0.75rem; backdrop-filter: blur(8px); }
+    .amenity-group__icon { width: 32px; height: 32px; margin-bottom: 0.5rem; color: var(--gold-light); }
+    .amenity-group__title { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold-light); margin-bottom: 0.5rem; }
+    .amenity-group__list li { font-size: 0.7rem; color: rgba(255,255,255,0.7); padding: 0.2rem 0; }
+
+    /* LOCATION */
+    .location { background: var(--cream); }
+    .location__grid { display: grid; gap: var(--space-5); }
+    @media (min-width: 900px) { .location__grid { grid-template-columns: 1fr 1fr; } }
+    .location__item { display: grid; grid-template-columns: auto 1fr auto; gap: 0.75rem; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid var(--gray-200); }
+    .location__dot { width: 8px; height: 8px; background: var(--red-600); border-radius: 50%; }
+    .location__map-wrap { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 4 / 3; width: 100%; }
+    .location__map { width: 100%; height: 100%; border: none; }
+
+    /* REVIEWS */
+    .reviews__grid { display: grid; gap: 1.5rem; }
+    @media (min-width: 640px) { .reviews__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .reviews__grid { grid-template-columns: repeat(3, 1fr); } }
+    .review-card { background: var(--off-white); border-radius: var(--radius-md); padding: var(--space-4); border: 1px solid var(--gray-100); }
+    .review-card__stars { color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .review-card__text { font-size: 0.85rem; line-height: 1.7; font-style: italic; }
+    .review-card__author { display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; }
+    .review-card__avatar { width: 38px; height: 38px; background: var(--red-700); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; }
+
+    /* CONTACT */
+    .contact { background: var(--off-white); }
+    .contact__grid { display: grid; gap: var(--space-5); }
+    @media (min-width: 900px) { .contact__grid { grid-template-columns: 1fr 1fr; } }
+    .contact__form-wrap { background: white; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-md); }
+    .form__row { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 560px) { .form__row { grid-template-columns: 1fr 1fr; } }
+    .form__input { font-family: var(--font-body); font-size: 1rem; background: var(--off-white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); padding: 0.8rem 1rem; width: 100%; }
+    .form__input:focus { outline: none; border-color: var(--red-600); }
+    .form__success { font-size: 0.85rem; background: #e8f8ee; border: 1px solid #a8ddb8; border-radius: var(--radius-sm); padding: 0.75rem; text-align: center; display: none; margin-top: 0.5rem; }
+    .form__success.visible { display: block; }
+
+    /* FOOTER */
+    .footer { background: var(--black); color: rgba(255,255,255,0.7); }
+    .footer__inner { display: flex; flex-direction: column; gap: var(--space-5); padding-block: var(--space-6) var(--space-5); }
+    @media (min-width: 768px) { .footer__inner { flex-direction: row; justify-content: space-between; } }
+    .footer__logo-text { font-family: var(--font-display); font-size: 1.5rem; color: white; }
+    .footer__bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-block: var(--space-3); }
+    .footer__bottom-inner { display: flex; flex-direction: column; gap: 1rem; align-items: center; text-align: center; }
+    @media (min-width: 768px) { .footer__bottom-inner { flex-direction: row; justify-content: space-between; } }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo"><span class="nav__logo-text">THE JADE</span><span class="nav__logo-sub">HOTEL</span></a>
+      <ul class="nav__links">
+        <li><a href="#about" class="nav__link">About</a></li>
+        <li><a href="#rooms" class="nav__link">Rooms</a></li>
+        <li><a href="#amenities" class="nav__link">Amenities</a></li>
+        <li><a href="#reviews" class="nav__link">Reviews</a></li>
+        <li><a href="#contact" class="nav__link nav__link--cta">Book Now</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburgerBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Redesigned mobile menu overlay (single close button) -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu__close" id="closeMenuBtn" aria-label="Close menu">✕</button>
+    <a href="#about" class="mobile-menu__link">About</a>
+    <a href="#rooms" class="mobile-menu__link">Rooms</a>
+    <a href="#amenities" class="mobile-menu__link">Amenities</a>
+    <a href="#reviews" class="mobile-menu__link">Reviews</a>
+    <a href="#contact" class="mobile-menu__link mobile-menu__link--cta">Book Now</a>
+  </div>
+
+  <section class="hero" id="hero">
+    <div class="hero__bg"><img src="assets/img/img1.JPEG" alt="The Jade Hotel exterior" class="hero__img" /><div class="hero__overlay"></div></div>
+    <div class="hero__content"><p class="hero__eyebrow">3-Star Comfort · Tan Binh District</p><h1 class="hero__title">Where Saigon's<br /><em>Soul Meets Serenity</em></h1><p class="hero__subtitle">10 minutes from Tan Son Nhat International Airport · Ho Chi Minh City, Vietnam</p><div class="hero__actions"><a href="#rooms" class="btn btn--primary">Explore Rooms</a><a href="#contact" class="btn btn--ghost">Get In Touch</a></div></div>
+    <div class="hero__scroll-hint"><span>Scroll</span><div class="hero__scroll-line"></div></div>
+  </section>
+
+  <section class="strip"><div class="strip__items"><div class="strip__item"><svg class="strip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg><span>52–54 Than Nhan Trung St, Tan Binh</span></div><div class="strip__item"><svg class="strip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>Check-in 14:00 · Check-out 12:00</span></div><div class="strip__item"><svg class="strip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Free Wi-Fi · 24-Hour Reception</span></div><div class="strip__item"><svg class="strip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>10 min drive to TSN Airport</span></div></div></section>
+
+  <section class="about section" id="about"><div class="container about__grid"><div class="about__media"><img src="assets/img/img1.JPEG" alt="Hotel interior" class="about__img" /><div class="about__badge"><span class="about__badge-number">3★</span><span class="about__badge-label">Rated Hotel</span></div></div><div class="about__content"><p class="section__eyebrow">Our Story</p><h2 class="section__title">A Sanctuary in the Heart of Ho Chi Minh City</h2><p class="about__text">Nestled in Tan Binh District, The Jade Hotel blends warm Vietnamese hospitality with modern comfort. Whether you're arriving on business or leisure, we ensure every stay is seamless.</p><p class="about__text">Just a 10-minute drive from Tan Son Nhat International Airport and within easy reach of iconic landmarks — The Jade is your perfect base.</p><div class="about__stats"><div class="about__stat"><span class="about__stat-num">6 km</span><span class="about__stat-label">to Chinatown</span></div><div class="about__stat"><span class="about__stat-num">3.8 km</span><span class="about__stat-label">to Dam Sen Park</span></div><div class="about__stat"><span class="about__stat-num">7 km</span><span class="about__stat-label">to Stadium</span></div></div></div></div></section>
+
+  <section class="rooms section" id="rooms"><div class="container"><div class="section__header"><p class="section__eyebrow">Accommodations</p><h2 class="section__title">Rooms & Suites</h2></div><div class="rooms__grid"><div class="room-card"><div class="room-card__img-wrap"><img src="assets/img/img2.JPEG" alt="Standard Room" class="room-card__img" /><div class="room-card__tag">Best Value</div></div><div class="room-card__body"><h3 class="room-card__title">Standard Double Room</h3><ul class="room-card__features"><li>1 King-size Bed</li><li>Air conditioning & soundproofing</li><li>Flat-screen TV</li><li>Mini-bar & kettle</li></ul><a href="#contact" class="btn btn--primary room-card__btn">Enquire Now</a></div></div><div class="room-card"><div class="room-card__img-wrap"><img src="assets/img/img3.JPEG" alt="Superior Room" class="room-card__img" /><div class="room-card__tag">Most Popular</div></div><div class="room-card__body"><h3 class="room-card__title">Superior Double Room</h3><ul class="room-card__features"><li>1 King-size Bed</li><li>Terrace & upgraded furnishings</li><li>Premium bath amenities</li></ul><a href="#contact" class="btn btn--primary room-card__btn">Enquire Now</a></div></div><div class="room-card"><div class="room-card__img-wrap"><img src="assets/img/img3.JPEG" alt="Family Suite" class="room-card__img" /><div class="room-card__tag">Family Pick</div></div><div class="room-card__body"><h3 class="room-card__title">Family Suite</h3><ul class="room-card__features"><li>2 King-size Beds</li><li>Spacious suite for family</li><li>Dual flat-screen TVs</li></ul><a href="#contact" class="btn btn--primary room-card__btn">Enquire Now</a></div></div></div></div></section>
+
+  <section class="amenities section" id="amenities"><div class="amenities__bg"><img src="assets/img/img3.JPEG" alt="Amenities" class="amenities__bg-img" /><div class="amenities__bg-overlay"></div></div><div class="container amenities__inner"><div class="section__header section__header--light"><p class="section__eyebrow section__eyebrow--light">What We Offer</p><h2 class="section__title section__title--light">Hotel Amenities</h2></div><div class="amenities__grid"><div class="amenity-group"><div class="amenity-group__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12.55a11 11 0 0114.08 0"/></svg></div><h4 class="amenity-group__title">Connectivity</h4><ul><li>Free Wi-Fi</li><li>Smart TV</li></ul></div><div class="amenity-group"><div class="amenity-group__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><h4 class="amenity-group__title">Wellness</h4><ul><li>Spa & massages</li></ul></div><div class="amenity-group"><div class="amenity-group__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><h4 class="amenity-group__title">24/7 Service</h4><ul><li>Reception & security</li></ul></div></div></div></section>
+
+  <section class="location section" id="location"><div class="container location__grid"><div class="location__content"><p class="section__eyebrow">Explore Saigon</p><h2 class="section__title">Perfectly Located</h2><ul class="location__list"><li class="location__item"><span class="location__dot"></span><span class="location__label">Tan Son Nhat Airport</span><span class="location__dist">10 min drive</span></li><li class="location__item"><span class="location__dot"></span><span class="location__label">Dam Sen Park</span><span class="location__dist">3.8 km</span></li><li class="location__item"><span class="location__dot"></span><span class="location__label">Chinatown</span><span class="location__dist">6 km</span></li></ul></div><div class="location__map-wrap"><iframe class="location__map" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3919.0934855271253!2d106.640155!3d10.8041517!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529e4125f8fcd%3A0xcf010a3251fd73cd!2sRedDoorz%20The%20Jade%20Hotel%20Than%20Nhan%20Trung!5e0!3m2!1sen!2s!4v1774817468162!5m2!1sen!2s" loading="lazy" title="Map"></iframe></div></div></section>
+
+  <section class="reviews section" id="reviews"><div class="container"><div class="section__header"><p class="section__eyebrow">Guest Experiences</p><h2 class="section__title">What Our Guests Say</h2></div><div class="reviews__grid"><div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">Arriving late from an international flight, the 24-hour reception team greeted us warmly. The soundproofing is impressive.</p><div class="review-card__author"><div class="review-card__avatar">MK</div><div><p class="review-card__name">Michael K.</p></div></div></div><div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">We stayed in the Family Suite — perfect for our family. The spa was a highlight. Superb value.</p><div class="review-card__author"><div class="review-card__avatar">LT</div><div><p class="review-card__name">Linh T.</p></div></div></div></div></div></section>
+
+  <section class="contact section" id="contact"><div class="container contact__grid"><div class="contact__info"><p class="section__eyebrow">Get In Touch</p><h2 class="section__title">Contact & Reservations</h2><p class="contact__text">Ready to book? Our team is available 24/7. We look forward to welcoming you.</p><div class="contact__details"><div class="contact__detail-item"><svg width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Address</strong><p>52–54 Than Nhan Trung St, Tan Binh, HCMC</p></div></div></div></div><div class="contact__form-wrap"><form class="contact__form" id="contactForm" novalidate><div class="form__row"><div class="form__field"><label class="form__label">First Name</label><input type="text" name="firstName" class="form__input" required /></div><div class="form__field"><label class="form__label">Last Name</label><input type="text" name="lastName" class="form__input" required /></div></div><div class="form__field"><label class="form__label">Email</label><input type="email" name="email" class="form__input" required /></div><div class="form__field"><label class="form__label">Message</label><textarea name="message" class="form__input form__textarea" rows="3"></textarea></div><button type="submit" class="btn btn--primary btn--full">Send Enquiry</button><div class="form__success" id="formSuccess"></div></form></div></div></section>
+
+  <footer class="footer"><div class="container footer__inner"><div class="footer__brand"><div class="footer__logo"><span class="footer__logo-text">THE JADE</span><span class="footer__logo-sub">HOTEL · HO CHI MINH CITY</span></div></div><div class="footer__cols"><div class="footer__col"><h5>Quick Links</h5><ul><li><a href="#about">About</a></li><li><a href="#rooms">Rooms</a></li><li><a href="#contact">Book Now</a></li></ul></div></div></div><div class="footer__bottom"><div class="container footer__bottom-inner"><p>© 2025 The Jade Hotel. All rights reserved.</p></div></div></footer>
+
+  <script>
+    (function() {
+      // Mobile menu elements
+      const hamburger = document.getElementById('hamburgerBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const closeBtn = document.getElementById('closeMenuBtn');
+      const body = document.body;
+
+      function openMenu() {
+        mobileMenu.classList.add('open');
+        body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        mobileMenu.classList.remove('open');
+        body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', openMenu);
+      closeBtn.addEventListener('click', closeMenu);
+
+      // Close menu when any mobile link is clicked
+      const mobileLinks = document.querySelectorAll('.mobile-menu__link');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Sticky nav
+      const nav = document.getElementById('nav');
+      function handleNavScroll() {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+      }
+      window.addEventListener('scroll', handleNavScroll, { passive: true });
+      handleNavScroll();
+
+      // Scroll reveal
+      const revealElements = document.querySelectorAll('.about__media, .about__content, .room-card, .amenity-group, .location__content, .location__map-wrap, .review-card, .contact__info, .contact__form-wrap');
+      revealElements.forEach((el, idx) => {
+        el.classList.add('reveal');
+        el.classList.add(`delay-${Math.min(idx % 3 + 1, 3)}`);
+      });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Contact form
+      const form = document.getElementById('contactForm');
+      const successDiv = document.getElementById('formSuccess');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const required = form.querySelectorAll('[required]');
+          let valid = true;
+          required.forEach(f => {
+            if (!f.value.trim()) {
+              f.style.borderColor = '#C0000A';
+              valid = false;
+            } else {
+              f.style.borderColor = '';
+            }
+          });
+          if (!valid) return;
+          const btn = form.querySelector('button[type="submit"]');
+          const originalText = btn.textContent;
+          btn.textContent = 'Sending…';
+          btn.disabled = true;
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.disabled = false;
+            form.reset();
+            successDiv.textContent = '✓ Thank you! We’ll be in touch within 2 hours.';
+            successDiv.classList.add('visible');
+            setTimeout(() => successDiv.classList.remove('visible'), 5000);
+          }, 1000);
+        });
+        form.querySelectorAll('.form__input').forEach(f => f.addEventListener('focus', () => f.style.borderColor = ''));
+      }
+    })();
+  </script>
+</body>
+</html>
